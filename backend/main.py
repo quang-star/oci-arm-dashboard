@@ -30,7 +30,9 @@ CONFIG_PATH = HOME / ".oci" / "config"
 SSH_PUB_PATH = HOME / ".oci" / "ssh-key.pub"
 
 # Secret API Key to protect the endpoints
-API_KEY = os.environ.get("DASHBOARD_API_KEY", "quanglab-secret-2026")
+API_KEY = os.environ.get("DASHBOARD_API_KEY")
+if not API_KEY:
+    raise RuntimeError("DASHBOARD_API_KEY must be configured before starting the API.")
 
 LAUNCH_ARGS = [
     str(EXE_PATH),

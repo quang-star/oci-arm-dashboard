@@ -3,6 +3,11 @@ set -e
 
 echo "=== Setting up OCI ARM Catcher Dashboard API Service ==="
 
+if ! sudo test -f /etc/catcher-api.env; then
+    echo "Create /etc/catcher-api.env with DASHBOARD_API_KEY first (see README.md)." >&2
+    exit 1
+fi
+
 APP_DIR="/home/ubuntu/oci-arm-dashboard-backend"
 mkdir -p "$APP_DIR"
 cp "$(dirname "$0")/main.py" "$APP_DIR/"
@@ -24,7 +29,7 @@ After=network.target
 Type=simple
 User=ubuntu
 WorkingDirectory=$APP_DIR
-Environment="DASHBOARD_API_KEY=quanglab-secret-2026"
+EnvironmentFile=/etc/catcher-api.env
 ExecStart=$APP_DIR/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
 Restart=always
 RestartSec=5

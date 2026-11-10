@@ -11,6 +11,8 @@ Giao diện web theo dõi và điều khiển tiến trình săn VPS Oracle Clou
 
 ## 1. Triển khai Backend lên VPS
 
+Trước khi cài service, tạo `/etc/catcher-api.env` trên VPS với nội dung `DASHBOARD_API_KEY=<key-rieng-ngau-nhien>` và chỉ cho root đọc (`sudo chmod 600 /etc/catcher-api.env`). Không đưa key vào repo.
+
 Chạy lệnh sau trên máy của bạn để đưa backend lên VPS:
 
 ```bash
@@ -37,7 +39,7 @@ Service Backend sẽ tự động chạy ngầm trên port `8000` và khởi đ�
    - **Root Directory:** Chọn thư mục `frontend`
    - **Environment Variables:**
      - `VITE_API_URL`: URL Backend (ví dụ `https://api-arm.quanglab.site`)
-     - `VITE_API_KEY`: Secret Key xác thực với Backend
+     - Không đặt API key trong biến `VITE_`: các giá trị này được công khai trong trình duyệt. Nhập key qua giao diện dashboard.
 3. Bấm **Deploy**.
 
 ---
